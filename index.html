@@ -1,8 +1,10 @@
 <!DOCTYPE html>
+<!-- Bahasa default adalah 'id'. Ini akan diubah oleh JS jika 'en' dipilih -->
 <html lang="id" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Judul akan diubah oleh JS -->
     <title>Puntang Heights Trail - Reach Your Peak, Find Your Peace.</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,6 +20,8 @@
             font-family: 'Playfair Display', serif;
         }
         
+        /* ... [Animasi dan style lain tetap sama] ... */
+
         /* Enhanced Hero with Parallax Effect */
         .hero-parallax {
             background: linear-gradient(135deg, #064e3b 0%, #0c7c5e 50%, #db2777 100%);
@@ -170,6 +174,24 @@
         .focus-ring {
             @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-pink-500;
         }
+
+        /* --- [BARU] CSS untuk Bilingual --- */
+        /* Sembunyikan elemen bahasa Inggris saat lang="id" */
+        html[lang="id"] .lang-en {
+            display: none;
+        }
+        /* Sembunyikan elemen bahasa Indonesia saat lang="en" */
+        html[lang="en"] .lang-id {
+            display: none;
+        }
+
+        /* Styling untuk tombol bahasa */
+        .lang-switcher.active {
+            @apply bg-emerald-800 text-white font-bold;
+        }
+        .lang-switcher:not(.active) {
+            @apply text-gray-500 font-normal hover:bg-gray-200;
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800">
@@ -183,7 +205,7 @@
     </div>
 
     <!-- Sticky CTA (Mobile) -->
-    <a href="#daftar" class="sticky-cta md:hidden bg-pink-600 text-white p-4 rounded-full shadow-2xl focus-ring" aria-label="Daftar sekarang">
+    <a href="#daftar" class="sticky-cta md:hidden bg-pink-600 text-white p-4 rounded-full shadow-2xl focus-ring" aria-label="Daftar sekarang" id="sticky-cta-mobile">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
         </svg>
@@ -201,15 +223,36 @@
                     <span class="sm:hidden">PHT</span>
                 </a>
                 
-                <div class="hidden lg:flex space-x-8 items-center">
-                    <a href="#tentang" class="text-gray-700 hover:text-pink-600 transition font-medium rounded-lg focus-ring px-1 py-0.5">Tentang</a>
-                    <a href="#kategori" class="text-gray-700 hover:text-pink-600 transition font-medium rounded-lg focus-ring px-1 py-0.5">Kategori</a>
-                    <a href="#lokasi" class="text-gray-700 hover:text-pink-600 transition font-medium rounded-lg focus-ring px-1 py-0.5">Lokasi</a>
-                    <a href="#gallery" class="text-gray-700 hover:text-pink-600 transition font-medium rounded-lg focus-ring px-1 py-0.5">Gallery</a>
-                    <a href="#sponsor" class="text-gray-700 hover:text-pink-600 transition font-medium rounded-lg focus-ring px-1 py-0.5">Sponsor</a>
-                    <a href="#daftar" class="btn-primary bg-pink-600 text-white px-6 py-2.5 rounded-full font-semibold hover:bg-pink-700 shadow-lg focus-ring">
+                <div class="hidden lg:flex items-center">
+                    <!-- Nav Links -->
+                    <div class="space-x-8">
+                        <a href="#tentang" class="text-gray-700 hover:text-pink-600 transition font-medium rounded-lg focus-ring px-1 py-0.5 lang-id">Tentang</a>
+                        <a href="#tentang" class="text-gray-700 hover:text-pink-600 transition font-medium rounded-lg focus-ring px-1 py-0.5 lang-en">About</a>
+                        
+                        <a href="#kategori" class="text-gray-700 hover:text-pink-600 transition font-medium rounded-lg focus-ring px-1 py-0.5 lang-id">Kategori</a>
+                        <a href="#kategori" class="text-gray-700 hover:text-pink-600 transition font-medium rounded-lg focus-ring px-1 py-0.5 lang-en">Categories</a>
+                        
+                        <a href="#lokasi" class="text-gray-700 hover:text-pink-600 transition font-medium rounded-lg focus-ring px-1 py-0.5 lang-id">Lokasi</a>
+                        <a href="#lokasi" class="text-gray-700 hover:text-pink-600 transition font-medium rounded-lg focus-ring px-1 py-0.5 lang-en">Location</a>
+                        
+                        <a href="#gallery" class="text-gray-700 hover:text-pink-600 transition font-medium rounded-lg focus-ring px-1 py-0.5">Gallery</a>
+                        
+                        <a href="#sponsor" class="text-gray-700 hover:text-pink-600 transition font-medium rounded-lg focus-ring px-1 py-0.5 lang-id">Sponsor</a>
+                        <a href="#sponsor" class="text-gray-700 hover:text-pink-600 transition font-medium rounded-lg focus-ring px-1 py-0.5 lang-en">Sponsors</a>
+                    </div>
+                    
+                    <a href="#daftar" class="btn-primary bg-pink-600 text-white px-6 py-2.5 rounded-full font-semibold hover:bg-pink-700 shadow-lg focus-ring ml-8 lang-id">
                         Daftar Sekarang
                     </a>
+                    <a href="#daftar" class="btn-primary bg-pink-600 text-white px-6 py-2.5 rounded-full font-semibold hover:bg-pink-700 shadow-lg focus-ring ml-8 lang-en">
+                        Register Now
+                    </a>
+
+                    <!-- [BARU] Language Switcher Desktop -->
+                    <div class="flex items-center ml-4 space-x-1 bg-gray-100 p-1 rounded-full">
+                        <button class="lang-switcher px-3 py-1 rounded-full text-sm transition-all" data-lang="id">ID</button>
+                        <button class="lang-switcher px-3 py-1 rounded-full text-sm transition-all" data-lang="en">EN</button>
+                    </div>
                 </div>
                 
                 <button id="mobile-menu-button" class="lg:hidden text-gray-800 p-2 rounded-lg focus-ring" aria-label="Buka menu">
@@ -221,12 +264,30 @@
         </div>
         
         <div id="mobile-menu" class="hidden lg:hidden bg-white border-t">
-            <a href="#tentang" class="block px-6 py-3 text-gray-700 hover:bg-gray-50 hover:text-pink-600 focus-ring focus:outline-none">Tentang</a>
-            <a href="#kategori" class="block px-6 py-3 text-gray-700 hover:bg-gray-50 hover:text-pink-600 focus-ring focus:outline-none">Kategori</a>
-            <a href="#lokasi" class="block px-6 py-3 text-gray-700 hover:bg-gray-50 hover:text-pink-600 focus-ring focus:outline-none">Lokasi</a>
+            <a href="#tentang" class="block px-6 py-3 text-gray-700 hover:bg-gray-50 hover:text-pink-600 focus-ring focus:outline-none lang-id">Tentang</a>
+            <a href="#tentang" class="block px-6 py-3 text-gray-700 hover:bg-gray-50 hover:text-pink-600 focus-ring focus:outline-none lang-en">About</a>
+            
+            <a href="#kategori" class="block px-6 py-3 text-gray-700 hover:bg-gray-50 hover:text-pink-600 focus-ring focus:outline-none lang-id">Kategori</a>
+            <a href="#kategori" class="block px-6 py-3 text-gray-700 hover:bg-gray-50 hover:text-pink-600 focus-ring focus:outline-none lang-en">Categories</a>
+            
+            <a href="#lokasi" class="block px-6 py-3 text-gray-700 hover:bg-gray-50 hover:text-pink-600 focus-ring focus:outline-none lang-id">Lokasi</a>
+            <a href="#lokasi" class="block px-6 py-3 text-gray-700 hover:bg-gray-50 hover:text-pink-600 focus-ring focus:outline-none lang-en">Location</a>
+            
             <a href="#gallery" class="block px-6 py-3 text-gray-700 hover:bg-gray-50 hover:text-pink-600 focus-ring focus:outline-none">Gallery</a>
-            <a href="#sponsor" class="block px-6 py-3 text-gray-700 hover:bg-gray-50 hover:text-pink-600 focus-ring focus:outline-none">Sponsor</a>
-            <a href="#daftar" class="block px-6 py-4 bg-pink-600 text-white text-center font-semibold focus-ring focus:outline-none">Daftar Sekarang</a>
+            
+            <a href="#sponsor" class="block px-6 py-3 text-gray-700 hover:bg-gray-50 hover:text-pink-600 focus-ring focus:outline-none lang-id">Sponsor</a>
+            <a href="#sponsor" class="block px-6 py-3 text-gray-700 hover:bg-gray-50 hover:text-pink-600 focus-ring focus:outline-none lang-en">Sponsors</a>
+
+            <!-- [BARU] Language Switcher Mobile -->
+            <div class="px-6 py-4">
+                <div class="flex items-center space-x-2 bg-gray-100 p-1 rounded-full">
+                    <button class="lang-switcher w-full px-3 py-2 rounded-full text-sm transition-all" data-lang="id">Indonesia</button>
+                    <button class="lang-switcher w-full px-3 py-2 rounded-full text-sm transition-all" data-lang="en">English</button>
+                </div>
+            </div>
+
+            <a href="#daftar" class="block px-6 py-4 bg-pink-600 text-white text-center font-semibold focus-ring focus:outline-none lang-id">Daftar Sekarang</a>
+            <a href="#daftar" class="block px-6 py-4 bg-pink-600 text-white text-center font-semibold focus-ring focus:outline-none lang-en">Register Now</a>
         </div>
     </nav>
 
@@ -248,36 +309,44 @@
             </p>
             
             <p class="text-lg sm:text-xl mb-8 font-medium opacity-95">
-                📍 Taman Wisata Bougenville, Bandung<br>
-                📅 Coming Soon - Stay Tuned!
+                <span class="lang-id">📍 Taman Wisata Bougenville, Bandung<br></span>
+                <span class="lang-en">📍 Bougenville Tourism Park, Bandung<br></span>
+                <span class="lang-id">📅 Segera Hadir - Nantikan!</span>
+                <span class="lang-en">📅 Coming Soon - Stay Tuned!</span>
             </p>
             
             <!-- Countdown Timer -->
             <div class="flex justify-center gap-3 sm:gap-4 mb-10 flex-wrap">
                 <div class="countdown-box rounded-xl p-3 sm:p-4 min-w-[70px] sm:min-w-[90px]">
                     <div class="text-2xl sm:text-4xl font-bold" id="days">00</div>
-                    <div class="text-xs sm:text-sm opacity-80">Hari</div>
+                    <div class="text-xs sm:text-sm opacity-80 lang-id">Hari</div>
+                    <div class="text-xs sm:text-sm opacity-80 lang-en">Days</div>
                 </div>
                 <div class="countdown-box rounded-xl p-3 sm:p-4 min-w-[70px] sm:min-w-[90px]">
                     <div class="text-2xl sm:text-4xl font-bold" id="hours">00</div>
-                    <div class="text-xs sm:text-sm opacity-80">Jam</div>
+                    <div class="text-xs sm:text-sm opacity-80 lang-id">Jam</div>
+                    <div class="text-xs sm:text-sm opacity-80 lang-en">Hours</div>
                 </div>
                 <div class="countdown-box rounded-xl p-3 sm:p-4 min-w-[70px] sm:min-w-[90px]">
                     <div class="text-2xl sm:text-4xl font-bold" id="minutes">00</div>
-                    <div class="text-xs sm:text-sm opacity-80">Menit</div>
+                    <div class="text-xs sm:text-sm opacity-80 lang-id">Menit</div>
+                    <div class="text-xs sm:text-sm opacity-80 lang-en">Minutes</div>
                 </div>
                 <div class="countdown-box rounded-xl p-3 sm:p-4 min-w-[70px] sm:min-w-[90px]">
                     <div class="text-2xl sm:text-4xl font-bold" id="seconds">00</div>
-                    <div class="text-xs sm:text-sm opacity-80">Detik</div>
+                    <div class="text-xs sm:text-sm opacity-80 lang-id">Detik</div>
+                    <div class="text-xs sm:text-sm opacity-80 lang-en">Seconds</div>
                 </div>
             </div>
             
             <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
                 <a href="#daftar" class="btn-primary bg-pink-600 text-white px-8 py-4 rounded-full text-lg font-bold shadow-2xl hover:bg-pink-700 transform hover:scale-105 transition w-full sm:w-auto focus-ring">
-                    🎫 Daftar Sekarang
+                    <span class="lang-id">🎫 Daftar Sekarang</span>
+                    <span class="lang-en">🎫 Register Now</span>
                 </a>
                 <a href="#tentang" class="bg-white/20 backdrop-blur-sm text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-white/30 transition w-full sm:w-auto focus-ring">
-                    📖 Pelajari Lebih Lanjut
+                    <span class="lang-id">📖 Pelajari Lebih Lanjut</span>
+                    <span class="lang-en">📖 Learn More</span>
                 </a>
             </div>
         </div>
@@ -296,19 +365,23 @@
             <div class="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 text-center">
                 <div class="fade-in-up animated-element">
                     <div class="text-3xl sm:text-5xl font-bold text-pink-400 stat-number">200 pax</div>
-                    <div class="text-sm sm:text-base mt-2 opacity-90">Peserta Target</div>
+                    <div class="text-sm sm:text-base mt-2 opacity-90 lang-id">Peserta Target</div>
+                    <div class="text-sm sm:text-base mt-2 opacity-90 lang-en">Target Participants</div>
                 </div>
                 <div class="fade-in-up animated-element" style="transition-delay: 100ms;">
                     <div class="text-3xl sm:text-5xl font-bold text-pink-400 stat-number">2</div>
-                    <div class="text-sm sm:text-base mt-2 opacity-90">Kategori Lari</div>
+                    <div class="text-sm sm:text-base mt-2 opacity-90 lang-id">Kategori Lari</div>
+                    <div class="text-sm sm:text-base mt-2 opacity-90 lang-en">Race Categories</div>
                 </div>
                 <div class="fade-in-up animated-element" style="transition-delay: 200ms;">
                     <div class="text-3xl sm:text-5xl font-bold text-pink-400 stat-number">5k & 10k</div>
-                    <div class="text-sm sm:text-base mt-2 opacity-90">Rute Lari</div>
+                    <div class="text-sm sm:text-base mt-2 opacity-90 lang-id">Rute Lari</div>
+                    <div class="text-sm sm:text-base mt-2 opacity-90 lang-en">Race Routes</div>
                 </div>
                 <div class="fade-in-up animated-element" style="transition-delay: 300ms;">
                     <div class="text-3xl sm:text-5xl font-bold text-pink-400 stat-number">100%</div>
-                    <div class="text-sm sm:text-base mt-2 opacity-90">Pengalaman Premium</div>
+                    <div class="text-sm sm:text-base mt-2 opacity-90 lang-id">Pengalaman Premium</div>
+                    <div class="text-sm sm:text-base mt-2 opacity-90 lang-en">Premium Experience</div>
                 </div>
             </div>
         </div>
@@ -319,15 +392,28 @@
         <div class="container mx-auto px-4 sm:px-6">
             <div class="grid lg:grid-cols-2 gap-12 items-center">
                 <div class="fade-in-left animated-element">
-                    <span class="text-pink-600 font-semibold uppercase tracking-wider text-sm">Tentang Event</span>
-                    <h2 class="font-display text-3xl sm:text-5xl font-bold text-emerald-900 mt-3 mb-6">
+                    <span class="text-pink-600 font-semibold uppercase tracking-wider text-sm lang-id">Tentang Event</span>
+                    <span class="text-pink-600 font-semibold uppercase tracking-wider text-sm lang-en">About the Event</span>
+                    
+                    <h2 class="font-display text-3xl sm:text-5xl font-bold text-emerald-900 mt-3 mb-6 lang-id">
                         Lebih Dari Lari,<br>Ini Adalah Race-cation Premium
                     </h2>
-                    <p class="text-lg text-gray-600 mb-4 leading-relaxed">
+                    <h2 class="font-display text-3xl sm:text-5xl font-bold text-emerald-900 mt-3 mb-6 lang-en">
+                        More Than a Run,<br>This is a Premium Race-cation
+                    </h2>
+                    
+                    <p class="text-lg text-gray-600 mb-4 leading-relaxed lang-id">
                         Puntang Heights Trail adalah event fun run premium inovatif yang dirancang untuk menawarkan pengalaman <strong>"Race-cation"</strong> (lari dan liburan) tak tertandingi di Taman Wisata Bougenville, Bandung.
                     </p>
-                    <p class="text-gray-600 mb-6 leading-relaxed">
+                    <p class="text-lg text-gray-600 mb-4 leading-relaxed lang-en">
+                        Puntang Heights Trail is an innovative premium fun run event designed to offer an unparalleled <strong>"Race-cation"</strong> (race and vacation) experience at Bougenville Tourism Park, Bandung.
+                    </p>
+                    
+                    <p class="text-gray-600 mb-6 leading-relaxed lang-id">
                         Kami tidak hanya mengajak Anda bergerak aktif di alam pegunungan Puntang yang indah, tetapi juga memanjakan Anda dengan kenyamanan dan kemewahan fasilitas resort.
+                    </p>
+                    <p class="text-gray-600 mb-6 leading-relaxed lang-en">
+                        We not only invite you to be active in the beautiful nature of the Puntang mountains but also pamper you with the comfort and luxury of resort facilities.
                     </p>
                     
                     <div class="grid grid-cols-2 gap-4 mb-8">
@@ -342,7 +428,8 @@
                     </div>
                     
                     <a href="#kategori" class="inline-flex items-center text-pink-600 font-semibold text-lg hover:gap-2 transition-all rounded-lg focus-ring py-1">
-                        Lihat Kategori Lomba 
+                        <span class="lang-id">Lihat Kategori Lomba</span>
+                        <span class="lang-en">See Race Categories</span>
                         <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
                         </svg>
@@ -370,8 +457,11 @@
             <h2 class="font-display text-3xl sm:text-4xl md:text-5xl font-bold mb-6">
                 The Toughest Fun Run<br class="sm:hidden"> with the Softest Landing
             </h2>
-            <p class="text-lg sm:text-xl text-gray-200 leading-relaxed max-w-3xl mx-auto">
+            <p class="text-lg sm:text-xl text-gray-200 leading-relaxed max-w-3xl mx-auto lang-id">
                 Puntang Heights Trail menjanjikan rute yang menantang namun menyenangkan. Setelah Anda "mencapai puncak" pencapaian lari, Anda akan "menemukan kedamaian" dalam kemewahan dan kenyamanan fasilitas premium di Race Village Taman Wisata Bougenville.
+            </p>
+            <p class="text-lg sm:text-xl text-gray-200 leading-relaxed max-w-3xl mx-auto lang-en">
+                Puntang Heights Trail promises a challenging yet enjoyable route. After you "reach your peak" in running achievement, you will "find your peace" in the luxury and comfort of the premium facilities at the Taman Wisata Bougenville Race Village.
             </p>
         </div>
     </section>
@@ -380,12 +470,21 @@
     <section id="kategori" class="py-16 sm:py-24 bg-gray-50 overflow-hidden">
         <div class="container mx-auto px-4 sm:px-6">
             <div class="text-center mb-12 sm:mb-16 fade-in-up animated-element">
-                <span class="text-pink-600 font-semibold uppercase tracking-wider text-sm">Pilihan Kategori</span>
-                <h2 class="font-display text-3xl sm:text-5xl font-bold text-emerald-900 mt-3 mb-4">
+                <span class="text-pink-600 font-semibold uppercase tracking-wider text-sm lang-id">Pilihan Kategori</span>
+                <span class="text-pink-600 font-semibold uppercase tracking-wider text-sm lang-en">Category Options</span>
+                
+                <h2 class="font-display text-3xl sm:text-5xl font-bold text-emerald-900 mt-3 mb-4 lang-id">
                     Pilih Kategori Anda
                 </h2>
-                <p class="text-gray-600 max-w-2xl mx-auto">
-                    Dua kategori dirancang untuk berbagai level pelari, dari keluarga hingga pelari berpengalaman
+                <h2 class="font-display text-3xl sm:text-5xl font-bold text-emerald-900 mt-3 mb-4 lang-en">
+                    Choose Your Category
+                </h2>
+                
+                <p class="text-gray-600 max-w-2xl mx-auto lang-id">
+                    Dua kategori dirancang untuk berbagai level pelari, dari keluarga hingga pelari berpengalaman.
+                </p>
+                <p class="text-gray-600 max-w-2xl mx-auto lang-en">
+                    Two categories designed for various levels of runners, from families to experienced runners.
                 </p>
             </div>
             
@@ -401,8 +500,11 @@
                     
                     <div class="p-8">
                         <h3 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">The Scenic Loop</h3>
-                        <p class="text-gray-600 mb-6 leading-relaxed">
+                        <p class="text-gray-600 mb-6 leading-relaxed lang-id">
                             Rute hybrid memadukan trek TWB dengan jalur setapak perkebunan kopi dan hutan pinus. Dirancang untuk pemandangan indah dan tantangan yang menyenangkan.
+                        </p>
+                        <p class="text-gray-600 mb-6 leading-relaxed lang-en">
+                            A hybrid route combining the TWB track with coffee plantation trails and pine forests. Designed for beautiful scenery and a fun challenge.
                         </p>
                         
                         <div class="space-y-3 mb-6">
@@ -410,13 +512,15 @@
                                 <svg class="w-5 h-5 text-pink-600 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                                 </svg>
-                                <span class="text-gray-700">Pelari rekreasi & komunitas</span>
+                                <span class="text-gray-700 lang-id">Pelari rekreasi & komunitas</span>
+                                <span class="text-gray-700 lang-en">Recreational runners & communities</span>
                             </div>
                             <div class="flex items-start gap-3">
                                 <svg class="w-5 h-5 text-pink-600 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                                 </svg>
-                                <span class="text-gray-700">Water station tematik Kopi Puntang/Wheels</span>
+                                <span class="text-gray-700 lang-id">Water station tematik Kopi Puntang/Wheels</span>
+                                <span class="text-gray-700 lang-en">Thematic Puntang Coffee/Wheels water station</span>
                             </div>
                             <div class="flex items-start gap-3">
                                 <svg class="w-5 h-5 text-pink-600 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
@@ -427,7 +531,8 @@
                         </div>
                         
                         <a href="#daftar" class="btn-primary block text-center bg-emerald-900 text-white px-6 py-4 rounded-xl font-bold hover:bg-emerald-800 transition shadow-lg focus-ring">
-                            Daftar 10K →
+                            <span class="lang-id">Daftar 10K →</span>
+                            <span class="lang-en">Register 10K →</span>
                         </a>
                     </div>
                 </div>
@@ -443,8 +548,11 @@
                     
                     <div class="p-8">
                         <h3 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">The Bougenville Garden Run</h3>
-                        <p class="text-gray-600 mb-6 leading-relaxed">
+                        <p class="text-gray-600 mb-6 leading-relaxed lang-id">
                             Rute santai di dalam area Taman Wisata Bougenville. Melewati taman bunga, danau, dan spot ikonik. Sangat ramah keluarga dan anak.
+                        </p>
+                        <p class="text-gray-600 mb-6 leading-relaxed lang-en">
+                            A relaxing route within the Bougenville Tourism Park area. Passes through flower gardens, lakes, and iconic spots. Very family and kid-friendly.
                         </p>
                         
                         <div class="space-y-3 mb-6">
@@ -452,7 +560,8 @@
                                 <svg class="w-5 h-5 text-pink-600 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                                 </svg>
-                                <span class="text-gray-700">Keluarga & pemula</span>
+                                <span class="text-gray-700 lang-id">Keluarga & pemula</span>
+                                <span class="text-gray-700 lang-en">Families & beginners</span>
                             </div>
                             <div class="flex items-start gap-3">
                                 <svg class="w-5 h-5 text-pink-600 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
@@ -464,12 +573,14 @@
                                 <svg class="w-5 h-5 text-pink-600 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                                 </svg>
-                                <span class="text-gray-700">Flat terrain - sangat nyaman</span>
+                                <span class="text-gray-700 lang-id">Flat terrain - sangat nyaman</span>
+                                <span class="text-gray-700 lang-en">Flat terrain - very comfortable</span>
                             </div>
                         </div>
                         
                         <a href="#daftar" class="btn-primary block text-center bg-pink-600 text-white px-6 py-4 rounded-xl font-bold hover:bg-pink-700 transition shadow-lg focus-ring">
-                            Daftar 5K →
+                            <span class="lang-id">Daftar 5K →</span>
+                            <span class="lang-en">Register 5K →</span>
                         </a>
                     </div>
                 </div>
@@ -481,32 +592,47 @@
     <section id="target-audiens" class="py-16 sm:py-24 bg-white overflow-hidden">
         <div class="container mx-auto px-4 sm:px-6">
             <div class="text-center mb-12 sm:mb-16 fade-in-up animated-element">
-                <span class="text-emerald-900 font-semibold uppercase tracking-wider text-sm">Untuk Siapa Event Ini?</span>
-                <h2 class="font-display text-3xl sm:text-5xl font-bold text-pink-600 mt-3 mb-4">
+                <span class="text-emerald-900 font-semibold uppercase tracking-wider text-sm lang-id">Untuk Siapa Event Ini?</span>
+                <span class="text-emerald-900 font-semibold uppercase tracking-wider text-sm lang-en">Who is This Event For?</span>
+                
+                <h2 class="font-display text-3xl sm:text-5xl font-bold text-pink-600 mt-3 mb-4 lang-id">
                     Siapa yang Akan Kami Sambut
                 </h2>
-                <p class="text-lg text-gray-600 max-w-3xl mx-auto">
-                    Kami merancang event ini untuk audiens spesifik yang menghargai kualitas, pengalaman, dan gaya hidup sehat
+                <h2 class="font-display text-3xl sm:text-5xl font-bold text-pink-600 mt-3 mb-4 lang-en">
+                    Who We Welcome
+                </h2>
+                
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto lang-id">
+                    Kami merancang event ini untuk audiens spesifik yang menghargai kualitas, pengalaman, dan gaya hidup sehat.
+                </p>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto lang-en">
+                    We designed this event for a specific audience that values quality, experience, and a healthy lifestyle.
                 </p>
             </div>
             
             <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
                 <div class="card-hover bg-gradient-to-br from-emerald-50 to-emerald-100 p-8 rounded-2xl shadow-lg fade-in-up animated-element">
                     <div class="text-5xl mb-4">👨‍👩‍👧‍👦</div>
-                    <h3 class="text-xl font-bold text-emerald-900 mb-3">Keluarga Urban</h3>
-                    <p class="text-gray-700 leading-relaxed">Orang tua (30-50 th) dengan anak-anak yang mencari aktivitas akhir pekan berkualitas, sehat, dan nyaman.</p>
+                    <h3 class="text-xl font-bold text-emerald-900 mb-3 lang-id">Keluarga Urban</h3>
+                    <h3 class="text-xl font-bold text-emerald-900 mb-3 lang-en">Urban Families</h3>
+                    <p class="text-gray-700 leading-relaxed lang-id">Orang tua (30-50 th) dengan anak-anak yang mencari aktivitas akhir pekan berkualitas, sehat, dan nyaman.</p>
+                    <p class="text-gray-700 leading-relaxed lang-en">Parents (30-50 yrs) with children looking for quality, healthy, and comfortable weekend activities.</p>
                 </div>
                 
                 <div class="card-hover bg-gradient-to-br from-pink-50 to-pink-100 p-8 rounded-2xl shadow-lg fade-in-up animated-element" style="transition-delay: 100ms;">
                     <div class="text-5xl mb-4">🏃‍♀️</div>
-                    <h3 class="text-xl font-bold text-pink-900 mb-3">Komunitas Lifestyle</h3>
-                    <p class="text-gray-700 leading-relaxed">Individu aktif (22-35 th) yang menyukai outdoor, fotografi, dan mencari event yang seru dan Instagrammable.</p>
+                    <h3 class="text-xl font-bold text-pink-900 mb-3 lang-id">Komunitas Lifestyle</h3>
+                    <h3 class="text-xl font-bold text-pink-900 mb-3 lang-en">Lifestyle Communities</h3>
+                    <p class="text-gray-700 leading-relaxed lang-id">Individu aktif (22-35 th) yang menyukai outdoor, fotografi, dan mencari event yang seru dan Instagrammable.</p>
+                    <p class="text-gray-700 leading-relaxed lang-en">Active individuals (22-35 yrs) who love the outdoors, photography, and seek fun, Instagrammable events.</p>
                 </div>
                 
                 <div class="card-hover bg-gradient-to-br from-purple-50 to-purple-100 p-8 rounded-2xl shadow-lg fade-in-up animated-element" style="transition-delay: 200ms;">
                     <div class="text-5xl mb-4">🏢</div>
-                    <h3 class="text-xl font-bold text-purple-900 mb-3">Grup Korporat</h3>
-                    <p class="text-gray-700 leading-relaxed">Perusahaan yang mencari program team building, corporate wellness, atau gathering yang berkesan.</p>
+                    <h3 class="text-xl font-bold text-purple-900 mb-3 lang-id">Grup Korporat</h3>
+                    <h3 class="text-xl font-bold text-purple-900 mb-3 lang-en">Corporate Groups</h3>
+                    <p class="text-gray-700 leading-relaxed lang-id">Perusahaan yang mencari program team building, corporate wellness, atau gathering yang berkesan.</p>
+                    <p class="text-gray-700 leading-relaxed lang-en">Companies looking for team building, corporate wellness, or memorable gathering programs.</p>
                 </div>
             </div>
         </div>
@@ -517,11 +643,19 @@
         <div class="container mx-auto px-4 sm:px-6">
             <div class="text-center mb-12 sm:mb-16 fade-in-up animated-element">
                 <span class="text-pink-600 font-semibold uppercase tracking-wider text-sm">Race Village Premium</span>
-                <h2 class="font-display text-3xl sm:text-5xl font-bold text-emerald-900 mt-3 mb-4">
+                
+                <h2 class="font-display text-3xl sm:text-5xl font-bold text-emerald-900 mt-3 mb-4 lang-id">
                     Kenyamanan Premium di<br class="hidden sm:inline"> Taman Wisata Bougenville
                 </h2>
-                <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                <h2 class="font-display text-3xl sm:text-5xl font-bold text-emerald-900 mt-3 mb-4 lang-en">
+                    Premium Comfort at<br class="hidden sm:inline"> Bougenville Tourism Park
+                </h2>
+                
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto lang-id">
                     Race village kami bukan hanya garis finish. Ini adalah destinasi relaksasi dengan fasilitas mewah untuk Anda dan keluarga nikmati setelah berlari.
+                </p>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto lang-en">
+                    Our race village isn't just a finish line. It's a relaxation destination with luxury facilities for you and your family to enjoy after the run.
                 </p>
             </div>
             
@@ -533,7 +667,8 @@
                         </svg>
                     </div>
                     <h3 class="text-xl font-bold text-gray-900 mb-3 text-center">Gourmet Food Bazaar</h3>
-                    <p class="text-gray-600 text-center leading-relaxed">Pilihan kuliner premium, hidangan lokal, dan kopi khas Puntang untuk energi Anda.</p>
+                    <p class="text-gray-600 text-center leading-relaxed lang-id">Pilihan kuliner premium, hidangan lokal, dan kopi khas Puntang untuk energi Anda.</p>
+                    <p class="text-gray-600 text-center leading-relaxed lang-en">Premium culinary choices, local dishes, and Puntang's signature coffee for your energy.</p>
                 </div>
                 
                 <div class="card-hover bg-white p-8 rounded-2xl shadow-lg fade-in-up animated-element" style="transition-delay: 100ms;">
@@ -543,7 +678,8 @@
                         </svg>
                     </div>
                     <h3 class="text-xl font-bold text-gray-900 mb-3 text-center">Recovery Lounge</h3>
-                    <p class="text-gray-600 text-center leading-relaxed">Area relaksasi eksklusif dengan pijat gratis, ice bath, dan refreshment premium.</p>
+                    <p class="text-gray-600 text-center leading-relaxed lang-id">Area relaksasi eksklusif dengan pijat gratis, ice bath, dan refreshment premium.</p>
+                    <p class="text-gray-600 text-center leading-relaxed lang-en">Exclusive relaxation area with free massage, ice bath, and premium refreshments.</p>
                 </div>
                 
                 <div class="card-hover bg-white p-8 rounded-2xl shadow-lg fade-in-up animated-element" style="transition-delay: 200ms;">
@@ -553,7 +689,8 @@
                         </svg>
                     </div>
                     <h3 class="text-xl font-bold text-gray-900 mb-3 text-center">Kids & Family Zone</h3>
-                    <p class="text-gray-600 text-center leading-relaxed">Area bermain anak yang aman, face painting, dan aktivitas kreatif untuk keluarga.</p>
+                    <p class="text-gray-600 text-center leading-relaxed lang-id">Area bermain anak yang aman, face painting, dan aktivitas kreatif untuk keluarga.</p>
+                    <p class="text-gray-600 text-center leading-relaxed lang-en">Safe kids' play area, face painting, and creative activities for the family.</p>
                 </div>
             </div>
         </div>
@@ -564,8 +701,11 @@
         <div class="container mx-auto px-4 sm:px-6">
             <div class="text-center mb-12 sm:mb-16 fade-in-up animated-element">
                 <span class="text-pink-600 font-semibold uppercase tracking-wider text-sm">Gallery</span>
-                <h2 class="font-display text-3xl sm:text-5xl font-bold text-emerald-900 mt-3 mb-4">
+                <h2 class="font-display text-3xl sm:text-5xl font-bold text-emerald-900 mt-3 mb-4 lang-id">
                     Sneak Peek Pengalaman Anda
+                </h2>
+                <h2 class="font-display text-3xl sm:text-5xl font-bold text-emerald-900 mt-3 mb-4 lang-en">
+                    Sneak Peek Your Experience
                 </h2>
             </div>
             
@@ -597,12 +737,21 @@
                 </div>
                 
                 <div class="order-1 lg:order-2 fade-in-right animated-element">
-                    <span class="text-pink-600 font-semibold uppercase tracking-wider text-sm">Eksklusif Untuk Anda</span>
-                    <h2 class="font-display text-3xl sm:text-5xl font-bold text-emerald-900 mt-3 mb-6">
+                    <span class="text-pink-600 font-semibold uppercase tracking-wider text-sm lang-id">Eksklusif Untuk Anda</span>
+                    <span class="text-pink-600 font-semibold uppercase tracking-wider text-sm lang-en">Exclusive For You</span>
+                    
+                    <h2 class="font-display text-3xl sm:text-5xl font-bold text-emerald-900 mt-3 mb-6 lang-id">
                         Race Pack & Medali Kolektif
                     </h2>
-                    <p class="text-lg text-gray-600 mb-6">
+                    <h2 class="font-display text-3xl sm:text-5xl font-bold text-emerald-900 mt-3 mb-6 lang-en">
+                        Collectible Race Pack & Medal
+                    </h2>
+                    
+                    <p class="text-lg text-gray-600 mb-6 lang-id">
                         Setiap peserta akan mendapatkan race pack premium yang berisi:
+                    </p>
+                    <p class="text-lg text-gray-600 mb-6 lang-en">
+                        Each participant will receive a premium race pack containing:
                     </p>
                     
                     <div class="space-y-4">
@@ -612,7 +761,8 @@
                                     <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
                                 </svg>
                             </div>
-                            <span class="text-gray-700">Jersey lari dengan desain modern dan bahan berkualitas tinggi</span>
+                            <span class="text-gray-700 lang-id">Jersey lari dengan desain modern dan bahan berkualitas tinggi</span>
+                            <span class="text-gray-700 lang-en">Running jersey with modern design and high-quality material</span>
                         </div>
                         
                         <div class="flex items-start gap-4 bg-white p-4 rounded-xl shadow-sm">
@@ -621,7 +771,8 @@
                                     <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
                                 </svg>
                             </div>
-                            <span class="text-gray-700">Medali Finisher dengan desain unik (collectible item)</span>
+                            <span class="text-gray-700 lang-id">Medali Finisher dengan desain unik (collectible item)</span>
+                            <span class="text-gray-700 lang-en">Finisher Medal with a unique design (collectible item)</span>
                         </div>
                         
                         <div class="flex items-start gap-4 bg-gradient-to-r from-pink-50 to-pink-100 p-4 rounded-xl shadow-sm border-2 border-pink-200">
@@ -632,7 +783,8 @@
                             </div>
                             <div>
                                 <span class="font-bold text-pink-900 block">Exclusive Weekender Duffel Bag</span>
-                                <span class="text-gray-700 text-sm">Tas premium untuk petualangan Anda</span>
+                                <span class="text-gray-700 text-sm lang-id">Tas premium untuk petualangan Anda</span>
+                                <span class="text-gray-700 text-sm lang-en">A premium bag for your adventures</span>
                             </div>
                         </div>
                         
@@ -642,7 +794,8 @@
                                     <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
                                 </svg>
                             </div>
-                            <span class="text-gray-700">BIB dengan chip timing dan voucher sponsor</span>
+                            <span class="text-gray-700 lang-id">BIB dengan chip timing dan voucher sponsor</span>
+                            <span class="text-gray-700 lang-en">BIB with timing chip and sponsor vouchers</span>
                         </div>
                     </div>
                 </div>
@@ -654,18 +807,26 @@
     <section id="daftar" class="py-16 sm:py-24 bg-gradient-to-br from-pink-600 to-pink-700 text-white overflow-hidden">
         <div class="container mx-auto px-4 sm:px-6 max-w-4xl text-center fade-in-up animated-element">
             <div class="bg-white/10 backdrop-blur-sm rounded-3xl p-8 sm:p-12">
-                <h2 class="font-display text-3xl sm:text-5xl font-bold mb-6">
+                <h2 class="font-display text-3xl sm:text-5xl font-bold mb-6 lang-id">
                     Amankan Slot Anda Sekarang!
                 </h2>
-                <p class="text-lg sm:text-xl mb-8 opacity-95">
+                <h2 class="font-display text-3xl sm:text-5xl font-bold mb-6 lang-en">
+                    Secure Your Slot Now!
+                </h2>
+                
+                <p class="text-lg sm:text-xl mb-8 opacity-95 lang-id">
                     Pendaftaran akan segera dibuka. Daftarkan email Anda untuk mendapatkan informasi Early Bird dan promo eksklusif "Stay & Run" kami.
+                </p>
+                <p class="text-lg sm:text-xl mb-8 opacity-95 lang-en">
+                    Registration will open soon. Register your email to get Early Bird information and our exclusive "Stay & Run" promo.
                 </p>
                 
                 <div class="max-w-md mx-auto mb-8">
                     <div class="bg-white rounded-2xl p-6 shadow-2xl">
                         <input type="email" id="emailInput" placeholder="Masukkan email Anda" class="w-full px-5 py-4 rounded-xl border-2 border-gray-200 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent text-gray-800 mb-4">
                         <button onclick="handleSubmit()" class="btn-primary w-full bg-emerald-900 text-white px-8 py-4 rounded-xl font-bold hover:bg-emerald-800 shadow-lg transform hover:scale-105 transition focus-ring">
-                            🚀 Kirim & Dapatkan Info Early Bird
+                            <span class="lang-id">🚀 Kirim & Dapatkan Info Early Bird</span>
+                            <span class="lang-en">🚀 Submit & Get Early Bird Info</span>
                         </button>
                     </div>
                 </div>
@@ -698,14 +859,25 @@
     <section id="sponsor" class="py-16 sm:py-24 bg-emerald-900 text-white overflow-hidden">
         <div class="container mx-auto px-4 sm:px-6">
             <div class="text-center mb-12 sm:mb-16 fade-in-up animated-element">
-                <h2 class="font-display text-3xl sm:text-5xl font-bold mb-6">
+                <h2 class="font-display text-3xl sm:text-5xl font-bold mb-6 lang-id">
                     Jadilah Mitra Kami
                 </h2>
-                <p class="text-lg sm:text-xl text-gray-200 max-w-3xl mx-auto mb-4">
+                <h2 class="font-display text-3xl sm:text-5xl font-bold mb-6 lang-en">
+                    Become Our Partner
+                </h2>
+                
+                <p class="text-lg sm:text-xl text-gray-200 max-w-3xl mx-auto mb-4 lang-id">
                     Puntang Heights Trail adalah kesempatan unik untuk menghubungkan brand Anda dengan audiens premium yang menghargai gaya hidup sehat, keluarga, dan kemewahan.
                 </p>
-                <p class="text-lg text-gray-200 max-w-3xl mx-auto">
+                <p class="text-lg sm:text-xl text-gray-200 max-w-3xl mx-auto mb-4 lang-en">
+                    Puntang Heights Trail is a unique opportunity to connect your brand with a premium audience that values a healthy lifestyle, family, and luxury.
+                </p>
+                
+                <p class="text-lg text-gray-200 max-w-3xl mx-auto lang-id">
                     Raih eksposur masif dan bangun citra brand yang kuat bersama kami.
+                </p>
+                <p class="text-lg text-gray-200 max-w-3xl mx-auto lang-en">
+                    Gain massive exposure and build a strong brand image with us.
                 </p>
             </div>
 
@@ -713,25 +885,31 @@
                 <div class="card-hover bg-white/10 backdrop-blur-sm p-8 rounded-2xl fade-in-up animated-element">
                     <div class="text-4xl mb-4">📈</div>
                     <h3 class="text-xl font-bold mb-3">Brand Awareness</h3>
-                    <p class="text-gray-300 leading-relaxed">Eksposur brand yang masif melalui platform digital dan fisik kami kepada target audiens yang tepat.</p>
+                    <p class="text-gray-300 leading-relaxed lang-id">Eksposur brand yang masif melalui platform digital dan fisik kami kepada target audiens yang tepat.</p>
+                    <p class="text-gray-300 leading-relaxed lang-en">Massive brand exposure through our digital and physical platforms to the right target audience.</p>
                 </div>
                 
                 <div class="card-hover bg-white/10 backdrop-blur-sm p-8 rounded-2xl fade-in-up animated-element" style="transition-delay: 100ms;">
                     <div class="text-4xl mb-4">🤝</div>
-                    <h3 class="text-xl font-bold mb-3">Engagement Langsung</h3>
-                    <p class="text-gray-300 leading-relaxed">Interaksi langsung dengan audiens melalui aktivasi di race village, sampling produk, dan di rute lari.</p>
+                    <h3 class="text-xl font-bold mb-3 lang-id">Engagement Langsung</h3>
+                    <h3 class="text-xl font-bold mb-3 lang-en">Direct Engagement</h3>
+                    <p class="text-gray-300 leading-relaxed lang-id">Interaksi langsung dengan audiens melalui aktivasi di race village, sampling produk, dan di rute lari.</p>
+                    <p class="text-gray-300 leading-relaxed lang-en">Direct interaction with the audience through activations in the race village, product sampling, and on the run route.</p>
                 </div>
                 
                 <div class="card-hover bg-white/10 backdrop-blur-sm p-8 rounded-2xl fade-in-up animated-element" style="transition-delay: 200ms;">
                     <div class="text-4xl mb-4">⭐</div>
-                    <h3 class="text-xl font-bold mb-3">Brand Image Positif</h3>
-                    <p class="text-gray-300 leading-relaxed">Asosiasikan brand Anda dengan event premium, gaya hidup sehat, keluarga, dan pariwisata lokal.</p>
+                    <h3 class="text-xl font-bold mb-3 lang-id">Brand Image Positif</h3>
+                    <h3 class="text-xl font-bold mb-3 lang-en">Positive Brand Image</h3>
+                    <p class="text-gray-300 leading-relaxed lang-id">Asosiasikan brand Anda dengan event premium, gaya hidup sehat, keluarga, dan pariwisata lokal.</p>
+                    <p class="text-gray-300 leading-relaxed lang-en">Associate your brand with a premium event, healthy lifestyle, family, and local tourism.</p>
                 </div>
             </div>
 
             <div class="text-center fade-in-up animated-element" style="transition-delay: 300ms;">
                 <a href="mailto:info@puntangheightstrail.com?subject=Inquiry%20Paket%20Sponsorship" class="btn-primary inline-flex items-center gap-2 bg-white text-emerald-900 px-8 py-4 rounded-full text-lg font-bold hover:bg-gray-100 shadow-2xl transform hover:scale-105 transition focus-ring">
-                    📧 Hubungi Kami untuk Proposal
+                    <span class="lang-id">📧 Hubungi Kami untuk Proposal</span>
+                    <span class="lang-en">📧 Contact Us for Proposal</span>
                 </a>
             </div>
         </div>
@@ -748,57 +926,75 @@
                         </svg>
                         <h4 class="text-xl font-bold text-white">Puntang Heights Trail</h4>
                     </div>
-                    <p class="text-sm leading-relaxed mb-4">
+                    <p class="text-sm leading-relaxed mb-4 lang-id">
                         Event fun run premium yang mengkombinasikan lari dan liburan di Taman Wisata Bougenville, Bandung.
                     </p>
-                    <p class="text-sm">Oleh: [Nama Penyelenggara Event]</p>
+                    <p class="text-sm leading-relaxed mb-4 lang-en">
+                        A premium fun run event combining running and vacation at Bougenville Tourism Park, Bandung.
+                    </p>
+                    <p class="text-sm lang-id">Oleh: [Nama Penyelenggara Event]</p>
+                    <p class="text-sm lang-en">By: [Event Organizer Name]</p>
                 </div>
                 
                 <div>
-                    <h5 class="text-lg font-semibold text-white mb-4">Navigasi</h5>
+                    <h5 class="text-lg font-semibold text-white mb-4 lang-id">Navigasi</h5>
+                    <h5 class="text-lg font-semibold text-white mb-4 lang-en">Navigation</h5>
                     <ul class="space-y-2 text-sm">
-                        <li><a href="#tentang" class="hover:text-white transition rounded-lg focus-ring py-0.5 px-1">Tentang</a></li>
-                        <li><a href="#kategori" class="hover:text-white transition rounded-lg focus-ring py-0.5 px-1">Kategori Lomba</a></li>
-                        <li><a href="#lokasi" class="hover:text-white transition rounded-lg focus-ring py-0.5 px-1">Lokasi & Fasilitas</a></li>
-                        <li><a href="#gallery" class="hover:text-white transition rounded-lg focus-ring py-0.5 px-1">Gallery</a></li>
-                        <li><a href="#sponsor" class="hover:text-white transition rounded-lg focus-ring py-0.5 px-1">Kemitraan</a></li>
+                        <li>
+                            <a href="#tentang" class="hover:text-white transition rounded-lg focus-ring py-0.5 px-1 lang-id">Tentang</a>
+                            <a href="#tentang" class="hover:text-white transition rounded-lg focus-ring py-0.5 px-1 lang-en">About</a>
+                        </li>
+                        <li>
+                            <a href="#kategori" class="hover:text-white transition rounded-lg focus-ring py-0.5 px-1 lang-id">Kategori Lomba</a>
+                            <a href="#kategori" class="hover:text-white transition rounded-lg focus-ring py-0.5 px-1 lang-en">Race Categories</a>
+                        </li>
+                        <li>
+                            <a href="#lokasi" class="hover:text-white transition rounded-lg focus-ring py-0.5 px-1 lang-id">Lokasi & Fasilitas</a>
+                            <a href="#lokasi" class="hover:text-white transition rounded-lg focus-ring py-0.5 px-1 lang-en">Location & Facilities</a>
+                        </li>
+                        <li>
+                            <a href="#gallery" class="hover:text-white transition rounded-lg focus-ring py-0.5 px-1">Gallery</a>
+                        </li>
+                        <li>
+                            <a href="#sponsor" class="hover:text-white transition rounded-lg focus-ring py-0.5 px-1 lang-id">Kemitraan</a>
+                            <a href="#sponsor" class="hover:text-white transition rounded-lg focus-ring py-0.5 px-1 lang-en">Partnership</a>
+                        </li>
                     </ul>
                 </div>
 
                 <div>
-                    <h5 class="text-lg font-semibold text-white mb-4">Hubungi Kami</h5>
+                    <h5 class="text-lg font-semibold text-white mb-4 lang-id">Hubungi Kami</h5>
+                    <h5 class="text-lg font-semibold text-white mb-4 lang-en">Contact Us</h5>
                     <ul class="space-y-2 text-sm">
                         <li><a href="mailto:info@puntangheightstrail.com" class="hover:text-white transition rounded-lg focus-ring py-0.5 px-1">info@puntangheightstrail.com</a></li>
                         <li><a href="tel:+6281224178271" class="hover:text-white transition rounded-lg focus-ring py-0.5 px-1">+62 812-2417-8271</a></li>
-                        <li><p>Bandung, Jawa Barat</p></li>
+                        <li class="lang-id"><p>Bandung, Jawa Barat</p></li>
+                        <li class="lang-en"><p>Bandung, West Java</p></li>
                     </ul>
                 </div>
 
                 <div>
-                    <h5 class="text-lg font-semibold text-white mb-4">Ikuti Kami</h5>
+                    <h5 class="text-lg font-semibold text-white mb-4 lang-id">Ikuti Kami</h5>
+                    <h5 class="text-lg font-semibold text-white mb-4 lang-en">Follow Us</h5>
                     <div class="flex gap-4 mb-6">
                         <a href="#" aria-label="Instagram" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-pink-600 transition focus-ring">
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.148 3.227-1.667 4.771-4.919 4.919-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-3.252-.148-4.771-1.691-4.919-4.919-.058-1.265-.07-1.646-.07-4.85s.012-3.584.07-4.85c.148-3.227 1.667 4.771 4.919-4.919C8.416 2.175 8.796 2.163 12 2.163zm0 1.626c-3.141 0-3.499.01-4.71.069-2.67.122-3.83.692-4.14 1.85C2.95 6.64 2.83 7.79 2.82 9.29c-.01 1.21-.06 3.4.0 4.71.12 2.67.69 3.83 1.85 4.14 1.16.31 2.5.43 3.99.44 1.21.01 3.4.06 4.71 0 2.67-.12 3.83-.69 4.14-1.85.31-1.16.43-2.5.44-3.99.01-1.21.06-3.4 0-4.71-.12-2.67-.69-3.83-1.85-4.14-1.16-.31-2.5-.43-3.99-.44-1.21-.01-3.4-.06-4.71 0zM12 7.25c-2.62 0-4.75 2.13-4.75 4.75s2.13 4.75 4.75 4.75 4.75-2.13 4.75-4.75S14.62 7.25 12 7.25zm0 7.875c-1.72 0-3.125-1.405-3.125-3.125S10.28 8.875 12 8.875s3.125 1.405 3.125 3.125-1.405 3.125-3.125 3.125zm4.875-8.125c-.62 0-1.125.505-1.125 1.125s.505 1.125 1.125 1.125 1.125-.505 1.125-1.125-.505-1.125-1.125-1.125z"/>
-                            </svg>
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><!-- ... icon path ... --></svg>
                         </a>
                         <a href="#" aria-label="Facebook" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-pink-600 transition focus-ring">
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.772-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/>
-                            </svg>
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><!-- ... icon path ... --></svg>
                         </a>
                         <a href="#" aria-label="Twitter" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-pink-600 transition focus-ring">
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/>
-                            </svg>
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><!-- ... icon path ... --></svg>
                         </a>
                     </div>
-                    <p class="text-xs">Ikuti update terbaru kami di media sosial</p>
+                    <p class="text-xs lang-id">Ikuti update terbaru kami di media sosial</p>
+                    <p class="text-xs lang-en">Follow our latest updates on social media</p>
                 </div>
             </div>
             
             <div class="border-t border-gray-800 pt-8 text-center">
-                <p class="text-sm">&copy; 2025 Puntang Heights Trail. Seluruh hak cipta dilindungi.</p>
+                <p class="text-sm lang-id">&copy; 2025 Puntang Heights Trail. Seluruh hak cipta dilindungi.</p>
+                <p class="text-sm lang-en">&copy; 2025 Puntang Heights Trail. All rights reserved.</p>
                 <p class="text-xs mt-2 text-gray-500">Designed by Mahasin Hadiyatulloh with ❤️ for trail runners</p>
             </div>
         </div>
@@ -897,20 +1093,35 @@
         function handleSubmit() {
             const emailInput = document.getElementById('emailInput');
             const email = emailInput.value.trim();
+            const currentLang = document.documentElement.lang;
+
+            // [BARU] Pesan bilingual
+            const messages = {
+                id: {
+                    noEmail: 'Mohon masukkan email Anda',
+                    invalidEmail: 'Mohon masukkan email yang valid',
+                    success: 'Terima kasih! Kami akan mengirimkan info Early Bird ke '
+                },
+                en: {
+                    noEmail: 'Please enter your email',
+                    invalidEmail: 'Please enter a valid email',
+                    success: 'Thank you! We will send Early Bird info to '
+                }
+            };
             
             if (!email) {
-                showToast('Mohon masukkan email Anda'); // Menggunakan toast
+                showToast(messages[currentLang].noEmail);
                 return;
             }
             
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!emailRegex.test(email)) {
-                showToast('Mohon masukkan email yang valid'); // Menggunakan toast
+                showToast(messages[currentLang].invalidEmail);
                 return;
             }
             
             // Show success message
-            showToast('Terima kasih! Kami akan mengirimkan info Early Bird ke ' + email); // Menggunakan toast
+            showToast(messages[currentLang].success + email);
             emailInput.value = '';
             
             // Di sini Anda biasanya akan mengirim ini ke backend Anda
@@ -972,6 +1183,82 @@
         window.addEventListener('load', () => {
             document.body.classList.add('loaded');
         });
+
+        // --- [BARU] LOGIKA BILINGUAL ---
+
+        // Referensi ke elemen yang perlu diubah atributnya
+        const elementsToUpdate = {
+            title: document.querySelector('title'),
+            mobileMenuBtn: document.getElementById('mobile-menu-button'),
+            stickyCta: document.getElementById('sticky-cta-mobile'),
+            emailInput: document.getElementById('emailInput'),
+            backToTopBtn: document.getElementById('backToTop')
+        };
+
+        // Teks untuk atribut
+        const attributeTranslations = {
+            id: {
+                title: 'Puntang Heights Trail - Capai Puncakmu, Temukan Kedamaianmu.',
+                mobileMenu: 'Buka menu',
+                stickyCta: 'Daftar sekarang',
+                emailPlaceholder: 'Masukkan email Anda',
+                backToTop: 'Kembali ke atas'
+            },
+            en: {
+                title: 'Puntang Heights Trail - Reach Your Peak, Find Your Peace.',
+                mobileMenu: 'Open menu',
+                stickyCta: 'Register now',
+                emailPlaceholder: 'Enter your email address',
+                backToTop: 'Back to top'
+            }
+        };
+        
+        const allLangSwitchers = document.querySelectorAll('.lang-switcher');
+
+        function setLanguage(lang) {
+            // 1. Set atribut 'lang' di <html>
+            document.documentElement.lang = lang;
+            
+            // 2. Simpan pilihan di localStorage
+            localStorage.setItem('pht_language', lang);
+
+            // 3. Perbarui style tombol aktif
+            allLangSwitchers.forEach(switcher => {
+                if (switcher.dataset.lang === lang) {
+                    switcher.classList.add('active');
+                } else {
+                    switcher.classList.remove('active');
+                }
+            });
+
+            // 4. Perbarui teks atribut (placeholder, aria-label, title)
+            const attrTexts = attributeTranslations[lang];
+            elementsToUpdate.title.textContent = attrTexts.title;
+            elementsToUpdate.mobileMenuBtn.setAttribute('aria-label', attrTexts.mobileMenu);
+            elementsToUpdate.stickyCta.setAttribute('aria-label', attrTexts.stickyCta);
+            elementsToUpdate.emailInput.setAttribute('placeholder', attrTexts.emailPlaceholder);
+            elementsToUpdate.backToTopBtn.setAttribute('aria-label', attrTexts.backToTop);
+
+            // 5. Tutup menu mobile jika terbuka saat ganti bahasa
+            mobileMenu.classList.add('hidden');
+        }
+
+        // 6. Pasang event listener di semua tombol
+        allLangSwitchers.forEach(switcher => {
+            switcher.addEventListener('click', (e) => {
+                setLanguage(e.target.dataset.lang);
+            });
+        });
+
+        // 7. Inisialisasi bahasa saat halaman dimuat
+        function initLanguage() {
+            const savedLang = localStorage.getItem('pht_language') || 'id'; // Default 'id'
+            setLanguage(savedLang);
+        }
+
+        // Panggil fungsi inisialisasi saat DOM siap
+        document.addEventListener('DOMContentLoaded', initLanguage);
+
     </script>
 
 </body>
