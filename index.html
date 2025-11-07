@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Puntang Heights Trail - Reach Your Peak, Find Your Peace.</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            overscroll-behavior-y: none;
+        }
+        .font-display {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        /* Enhanced Hero with Parallax Effect */
+        .hero-parallax {
+            background: linear-gradient(135deg, #064e3b 0%, #0c7c5e 50%, #db2777 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-parallax::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: drift 60s linear infinite;
+        }
+        @keyframes drift {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+        
+        /* Glassmorphism Nav */
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        /* Smooth Animations */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                        transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .fade-in-left {
+            opacity: 0;
+            transform: translateX(-40px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .fade-in-right {
+            opacity: 0;
+            transform: translateX(40px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .scale-in {
+            opacity: 0;
+            transform: scale(0.9);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .is-visible {
+            opacity: 1;
+            transform: translateY(0) translateX(0) scale(1);
+        }
+        
+        /* Enhanced Button Hover */
+        .btn-primary {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        .btn-primary:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+        
+        /* Countdown Timer Styling */
+        .countdown-box {
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        /* Card Hover Effects */
+        .card-hover {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .card-hover:hover {
+            transform: translateY(-12px) scale(1.02);
+        }
+        
+        /* Progress Bar */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #db2777, #064e3b);
+            z-index: 9999;
+            transition: width 0.2s ease;
+        }
+        
+        /* Statistics Counter Animation */
+        @keyframes countUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .stat-number {
+            animation: countUp 1s ease-out forwards;
+        }
+        
+        /* Floating Elements */
+        .float {
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        /* Image Zoom on Hover */
+        .zoom-img {
+            overflow: hidden;
+        }
+        .zoom-img img {
+            transition: transform 0.6s ease;
+        }
+        .zoom-img:hover img {
+            transform: scale(1.1);
+        }
+        
+        /* Sticky CTA Button */
+        .sticky-cta {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(219, 39, 119, 0.7); }
+            50% { box-shadow: 0 0 0 20px rgba(219, 39, 119, 0); }
+        }
+
+        /* Accessibility Focus Ring */
+        .focus-ring {
+            @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-pink-500;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <!-- Progress Bar -->
+    <div class="progress-bar" id="progressBar"></div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed top-20 right-5 bg-emerald-900 text-white px-6 py-3 rounded-lg shadow-2xl transform translate-x-[120%] transition-transform duration-500 ease-out z-[9999]">
+        <span id="toast-message"></span>
+    </div>
+
+    <!-- Sticky CTA (Mobile) -->
+    <a href="#daftar" class="sticky-cta md:hidden bg-pink-600 text-white p-4 rounded-full shadow-2xl focus-ring" aria-label="Daftar sekarang">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+        </svg>
+    </a>
+
+    <!-- Navigation -->
+    <nav class="glass-nav fixed top-0 left-0 right-0 z-50 transition-all duration-300" id="navbar">
+        <div class="container mx-auto px-4 sm:px-6 py-3 sm:py-4">
+            <div class="flex justify-between items-center">
+                <a href="#" class="text-xl sm:text-2xl font-bold text-emerald-900 flex items-center gap-2 rounded-lg focus-ring">
+                    <svg class="w-8 h-8 text-pink-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
+                    </svg>
+                    <span class="hidden sm:inline">Puntang Heights Trail</span>
+                    <span class="sm:hidden">PHT</span>
+                </a>
+                
+                <div class="hidden lg:flex space-x-8 items-center">
+                    <a href="#tentang" class="text-gray-700 hover:text-pink-600 transition font-medium rounded-lg focus-ring px-1 py-0.5">Tentang</a>
+                    <a href="#kategori" class="text-gray-700 hover:text-pink-600 transition font-medium rounded-lg focus-ring px-1 py-0.5">Kategori</a>
+                    <a href="#lokasi" class="text-gray-700 hover:text-pink-600 transition font-medium rounded-lg focus-ring px-1 py-0.5">Lokasi</a>
+                    <a href="#gallery" class="text-gray-700 hover:text-pink-600 transition font-medium rounded-lg focus-ring px-1 py-0.5">Gallery</a>
+                    <a href="#sponsor" class="text-gray-700 hover:text-pink-600 transition font-medium rounded-lg focus-ring px-1 py-0.5">Sponsor</a>
+                    <a href="#daftar" class="btn-primary bg-pink-600 text-white px-6 py-2.5 rounded-full font-semibold hover:bg-pink-700 shadow-lg focus-ring">
+                        Daftar Sekarang
+                    </a>
+                </div>
+                
+                <button id="mobile-menu-button" class="lg:hidden text-gray-800 p-2 rounded-lg focus-ring" aria-label="Buka menu">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        
+        <div id="mobile-menu" class="hidden lg:hidden bg-white border-t">
+            <a href="#tentang" class="block px-6 py-3 text-gray-700 hover:bg-gray-50 hover:text-pink-600 focus-ring focus:outline-none">Tentang</a>
+            <a href="#kategori" class="block px-6 py-3 text-gray-700 hover:bg-gray-50 hover:text-pink-600 focus-ring focus:outline-none">Kategori</a>
+            <a href="#lokasi" class="block px-6 py-3 text-gray-700 hover:bg-gray-50 hover:text-pink-600 focus-ring focus:outline-none">Lokasi</a>
+            <a href="#gallery" class="block px-6 py-3 text-gray-700 hover:bg-gray-50 hover:text-pink-600 focus-ring focus:outline-none">Gallery</a>
+            <a href="#sponsor" class="block px-6 py-3 text-gray-700 hover:bg-gray-50 hover:text-pink-600 focus-ring focus:outline-none">Sponsor</a>
+            <a href="#daftar" class="block px-6 py-4 bg-pink-600 text-white text-center font-semibold focus-ring focus:outline-none">Daftar Sekarang</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section with Countdown -->
+    <header class="hero-parallax relative min-h-screen flex items-center justify-center text-white pt-20">
+        <div class="relative z-10 text-center px-4 sm:px-6 max-w-5xl mx-auto">
+            <div class="mb-8">
+                <span class="inline-block bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-semibold mb-4">
+                    🏃‍♂️ Premium Trail Running Event
+                </span>
+            </div>
+            
+            <h1 class="font-display text-4xl sm:text-5xl md:text-7xl font-black leading-tight mb-6" style="text-shadow: 2px 4px 12px rgba(0,0,0,0.3);">
+                Puntang Heights Trail
+            </h1>
+            
+            <p class="text-2xl sm:text-3xl md:text-4xl font-light mb-4 italic" style="text-shadow: 1px 2px 8px rgba(0,0,0,0.3);">
+                Reach Your Peak, Find Your Peace.
+            </p>
+            
+            <p class="text-lg sm:text-xl mb-8 font-medium opacity-95">
+                📍 Taman Wisata Bougenville, Bandung<br>
+                📅 Coming Soon - Stay Tuned!
+            </p>
+            
+            <!-- Countdown Timer -->
+            <div class="flex justify-center gap-3 sm:gap-4 mb-10 flex-wrap">
+                <div class="countdown-box rounded-xl p-3 sm:p-4 min-w-[70px] sm:min-w-[90px]">
+                    <div class="text-2xl sm:text-4xl font-bold" id="days">00</div>
+                    <div class="text-xs sm:text-sm opacity-80">Hari</div>
+                </div>
+                <div class="countdown-box rounded-xl p-3 sm:p-4 min-w-[70px] sm:min-w-[90px]">
+                    <div class="text-2xl sm:text-4xl font-bold" id="hours">00</div>
+                    <div class="text-xs sm:text-sm opacity-80">Jam</div>
+                </div>
+                <div class="countdown-box rounded-xl p-3 sm:p-4 min-w-[70px] sm:min-w-[90px]">
+                    <div class="text-2xl sm:text-4xl font-bold" id="minutes">00</div>
+                    <div class="text-xs sm:text-sm opacity-80">Menit</div>
+                </div>
+                <div class="countdown-box rounded-xl p-3 sm:p-4 min-w-[70px] sm:min-w-[90px]">
+                    <div class="text-2xl sm:text-4xl font-bold" id="seconds">00</div>
+                    <div class="text-xs sm:text-sm opacity-80">Detik</div>
+                </div>
+            </div>
+            
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <a href="#daftar" class="btn-primary bg-pink-600 text-white px-8 py-4 rounded-full text-lg font-bold shadow-2xl hover:bg-pink-700 transform hover:scale-105 transition w-full sm:w-auto focus-ring">
+                    🎫 Daftar Sekarang
+                </a>
+                <a href="#tentang" class="bg-white/20 backdrop-blur-sm text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-white/30 transition w-full sm:w-auto focus-ring">
+                    📖 Pelajari Lebih Lanjut
+                </a>
+            </div>
+        </div>
+        
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+            </svg>
+        </div>
+    </header>
+
+    <!-- Statistics Bar -->
+    <section class="bg-emerald-900 text-white py-8 sm:py-12">
+        <div class="container mx-auto px-4 sm:px-6">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 text-center">
+                <div class="fade-in-up animated-element">
+                    <div class="text-3xl sm:text-5xl font-bold text-pink-400 stat-number">200 pax</div>
+                    <div class="text-sm sm:text-base mt-2 opacity-90">Peserta Target</div>
+                </div>
+                <div class="fade-in-up animated-element" style="transition-delay: 100ms;">
+                    <div class="text-3xl sm:text-5xl font-bold text-pink-400 stat-number">2</div>
+                    <div class="text-sm sm:text-base mt-2 opacity-90">Kategori Lari</div>
+                </div>
+                <div class="fade-in-up animated-element" style="transition-delay: 200ms;">
+                    <div class="text-3xl sm:text-5xl font-bold text-pink-400 stat-number">5k & 10k</div>
+                    <div class="text-sm sm:text-base mt-2 opacity-90">Rute Lari</div>
+                </div>
+                <div class="fade-in-up animated-element" style="transition-delay: 300ms;">
+                    <div class="text-3xl sm:text-5xl font-bold text-pink-400 stat-number">100%</div>
+                    <div class="text-sm sm:text-base mt-2 opacity-90">Pengalaman Premium</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="tentang" class="py-16 sm:py-24 bg-white overflow-hidden">
+        <div class="container mx-auto px-4 sm:px-6">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="fade-in-left animated-element">
+                    <span class="text-pink-600 font-semibold uppercase tracking-wider text-sm">Tentang Event</span>
+                    <h2 class="font-display text-3xl sm:text-5xl font-bold text-emerald-900 mt-3 mb-6">
+                        Lebih Dari Lari,<br>Ini Adalah Race-cation Premium
+                    </h2>
+                    <p class="text-lg text-gray-600 mb-4 leading-relaxed">
+                        Puntang Heights Trail adalah event fun run premium inovatif yang dirancang untuk menawarkan pengalaman <strong>"Race-cation"</strong> (lari dan liburan) tak tertandingi di Taman Wisata Bougenville, Bandung.
+                    </p>
+                    <p class="text-gray-600 mb-6 leading-relaxed">
+                        Kami tidak hanya mengajak Anda bergerak aktif di alam pegunungan Puntang yang indah, tetapi juga memanjakan Anda dengan kenyamanan dan kemewahan fasilitas resort.
+                    </p>
+                    
+                    <div class="grid grid-cols-2 gap-4 mb-8">
+                        <div class="bg-gradient-to-br from-emerald-50 to-emerald-100 p-4 rounded-xl">
+                            <div class="text-emerald-900 font-bold text-2xl">🏔️</div>
+                            <div class="text-sm font-semibold text-emerald-900 mt-2">Scenic Routes</div>
+                        </div>
+                        <div class="bg-gradient-to-br from-pink-50 to-pink-100 p-4 rounded-xl">
+                            <div class="text-pink-900 font-bold text-2xl">⭐</div>
+                            <div class="text-sm font-semibold text-pink-900 mt-2">Premium Facilities</div>
+                        </div>
+                    </div>
+                    
+                    <a href="#kategori" class="inline-flex items-center text-pink-600 font-semibold text-lg hover:gap-2 transition-all rounded-lg focus-ring py-1">
+                        Lihat Kategori Lomba 
+                        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+                        </svg>
+                    </a>
+                </div>
+                
+                <div class="fade-in-right animated-element">
+                    <div class="relative">
+                        <div class="zoom-img rounded-2xl overflow-hidden shadow-2xl">
+                            <img src="https://images.unsplash.com/photo-1551632811-561732d1e306?w=800" alt="Trail Running" class="w-full h-[400px] sm:h-[500px] object-cover" loading="lazy">
+                        </div>
+                        <div class="absolute -bottom-6 -left-6 bg-white p-6 rounded-xl shadow-xl float hidden sm:block">
+                            <div class="text-4xl font-bold text-pink-600">🎯</div>
+                            <div class="text-sm font-semibold mt-2">Toughest Fun Run<br>Softest Landing</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Concept Section -->
+    <section class="py-16 sm:py-20 bg-gradient-to-r from-emerald-900 to-emerald-800 text-white text-center">
+        <div class="container mx-auto px-4 sm:px-6 max-w-4xl fade-in-up animated-element">
+            <h2 class="font-display text-3xl sm:text-4xl md:text-5xl font-bold mb-6">
+                The Toughest Fun Run<br class="sm:hidden"> with the Softest Landing
+            </h2>
+            <p class="text-lg sm:text-xl text-gray-200 leading-relaxed max-w-3xl mx-auto">
+                Puntang Heights Trail menjanjikan rute yang menantang namun menyenangkan. Setelah Anda "mencapai puncak" pencapaian lari, Anda akan "menemukan kedamaian" dalam kemewahan dan kenyamanan fasilitas premium di Race Village Taman Wisata Bougenville.
+            </p>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section id="kategori" class="py-16 sm:py-24 bg-gray-50 overflow-hidden">
+        <div class="container mx-auto px-4 sm:px-6">
+            <div class="text-center mb-12 sm:mb-16 fade-in-up animated-element">
+                <span class="text-pink-600 font-semibold uppercase tracking-wider text-sm">Pilihan Kategori</span>
+                <h2 class="font-display text-3xl sm:text-5xl font-bold text-emerald-900 mt-3 mb-4">
+                    Pilih Kategori Anda
+                </h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">
+                    Dua kategori dirancang untuk berbagai level pelari, dari keluarga hingga pelari berpengalaman
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+                <!-- 10K Card -->
+                <div class="card-hover bg-white rounded-2xl shadow-xl overflow-hidden fade-in-up animated-element">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=800" alt="10K Route" class="w-full h-full object-cover transform hover:scale-110 transition duration-500" loading="lazy">
+                        <div class="absolute top-4 left-4">
+                            <span class="bg-emerald-900 text-white px-4 py-2 rounded-full font-bold text-lg">10K</span>
+                        </div>
+                    </div>
+                    
+                    <div class="p-8">
+                        <h3 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">The Scenic Loop</h3>
+                        <p class="text-gray-600 mb-6 leading-relaxed">
+                            Rute hybrid memadukan trek TWB dengan jalur setapak perkebunan kopi dan hutan pinus. Dirancang untuk pemandangan indah dan tantangan yang menyenangkan.
+                        </p>
+                        
+                        <div class="space-y-3 mb-6">
+                            <div class="flex items-start gap-3">
+                                <svg class="w-5 h-5 text-pink-600 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                </svg>
+                                <span class="text-gray-700">Pelari rekreasi & komunitas</span>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <svg class="w-5 h-5 text-pink-600 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                </svg>
+                                <span class="text-gray-700">Water station tematik Kopi Puntang</span>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <svg class="w-5 h-5 text-pink-600 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                </svg>
+                                <span class="text-gray-700">Elevation gain: ±300m</span>
+                            </div>
+                        </div>
+                        
+                        <a href="#daftar" class="btn-primary block text-center bg-emerald-900 text-white px-6 py-4 rounded-xl font-bold hover:bg-emerald-800 transition shadow-lg focus-ring">
+                            Daftar 10K →
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 5K Card -->
+                <div class="card-hover bg-white rounded-2xl shadow-xl overflow-hidden fade-in-up animated-element" style="transition-delay: 150ms;">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1490730141103-6cac27aaab94?w=800" alt="5K Route" class="w-full h-full object-cover transform hover:scale-110 transition duration-500" loading="lazy">
+                        <div class="absolute top-4 left-4">
+                            <span class="bg-pink-600 text-white px-4 py-2 rounded-full font-bold text-lg">5K</span>
+                        </div>
+                    </div>
+                    
+                    <div class="p-8">
+                        <h3 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">The Bougenville Garden Run</h3>
+                        <p class="text-gray-600 mb-6 leading-relaxed">
+                            Rute santai di dalam area Taman Wisata Bougenville. Melewati taman bunga, danau, dan spot ikonik. Sangat ramah keluarga dan anak.
+                        </p>
+                        
+                        <div class="space-y-3 mb-6">
+                            <div class="flex items-start gap-3">
+                                <svg class="w-5 h-5 text-pink-600 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                </svg>
+                                <span class="text-gray-700">Keluarga & pemula</span>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <svg class="w-5 h-5 text-pink-600 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                </svg>
+                                <span class="text-gray-700">Flower Confetti Zone & Bubble Zone</span>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <svg class="w-5 h-5 text-pink-600 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                </svg>
+                                <span class="text-gray-700">Flat terrain - sangat nyaman</span>
+                            </div>
+                        </div>
+                        
+                        <a href="#daftar" class="btn-primary block text-center bg-pink-600 text-white px-6 py-4 rounded-xl font-bold hover:bg-pink-700 transition shadow-lg focus-ring">
+                            Daftar 5K →
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Target Audience -->
+    <section id="target-audiens" class="py-16 sm:py-24 bg-white overflow-hidden">
+        <div class="container mx-auto px-4 sm:px-6">
+            <div class="text-center mb-12 sm:mb-16 fade-in-up animated-element">
+                <span class="text-emerald-900 font-semibold uppercase tracking-wider text-sm">Untuk Siapa Event Ini?</span>
+                <h2 class="font-display text-3xl sm:text-5xl font-bold text-pink-600 mt-3 mb-4">
+                    Siapa yang Akan Kami Sambut
+                </h2>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                    Kami merancang event ini untuk audiens spesifik yang menghargai kualitas, pengalaman, dan gaya hidup sehat
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <div class="card-hover bg-gradient-to-br from-emerald-50 to-emerald-100 p-8 rounded-2xl shadow-lg fade-in-up animated-element">
+                    <div class="text-5xl mb-4">👨‍👩‍👧‍👦</div>
+                    <h3 class="text-xl font-bold text-emerald-900 mb-3">Keluarga Urban</h3>
+                    <p class="text-gray-700 leading-relaxed">Orang tua (30-50 th) dengan anak-anak yang mencari aktivitas akhir pekan berkualitas, sehat, dan nyaman.</p>
+                </div>
+                
+                <div class="card-hover bg-gradient-to-br from-pink-50 to-pink-100 p-8 rounded-2xl shadow-lg fade-in-up animated-element" style="transition-delay: 100ms;">
+                    <div class="text-5xl mb-4">🏃‍♀️</div>
+                    <h3 class="text-xl font-bold text-pink-900 mb-3">Komunitas Lifestyle</h3>
+                    <p class="text-gray-700 leading-relaxed">Individu aktif (22-35 th) yang menyukai outdoor, fotografi, dan mencari event yang seru dan Instagrammable.</p>
+                </div>
+                
+                <div class="card-hover bg-gradient-to-br from-purple-50 to-purple-100 p-8 rounded-2xl shadow-lg fade-in-up animated-element" style="transition-delay: 200ms;">
+                    <div class="text-5xl mb-4">🏢</div>
+                    <h3 class="text-xl font-bold text-purple-900 mb-3">Grup Korporat</h3>
+                    <p class="text-gray-700 leading-relaxed">Perusahaan yang mencari program team building, corporate wellness, atau gathering yang berkesan.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Facilities Section -->
+    <section id="lokasi" class="py-16 sm:py-24 bg-gray-50 overflow-hidden">
+        <div class="container mx-auto px-4 sm:px-6">
+            <div class="text-center mb-12 sm:mb-16 fade-in-up animated-element">
+                <span class="text-pink-600 font-semibold uppercase tracking-wider text-sm">Race Village Premium</span>
+                <h2 class="font-display text-3xl sm:text-5xl font-bold text-emerald-900 mt-3 mb-4">
+                    Kenyamanan Premium di<br class="hidden sm:inline"> Taman Wisata Bougenville
+                </h2>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                    Race village kami bukan hanya garis finish. Ini adalah destinasi relaksasi dengan fasilitas mewah untuk Anda dan keluarga nikmati setelah berlari.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <div class="card-hover bg-white p-8 rounded-2xl shadow-lg fade-in-up animated-element">
+                    <div class="w-16 h-16 bg-gradient-to-br from-pink-100 to-pink-200 rounded-2xl flex items-center justify-center mb-6 mx-auto">
+                        <svg class="w-8 h-8 text-pink-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3 text-center">Gourmet Food Bazaar</h3>
+                    <p class="text-gray-600 text-center leading-relaxed">Pilihan kuliner premium, hidangan lokal, dan kopi khas Puntang untuk energi Anda.</p>
+                </div>
+                
+                <div class="card-hover bg-white p-8 rounded-2xl shadow-lg fade-in-up animated-element" style="transition-delay: 100ms;">
+                    <div class="w-16 h-16 bg-gradient-to-br from-emerald-100 to-emerald-200 rounded-2xl flex items-center justify-center mb-6 mx-auto">
+                        <svg class="w-8 h-8 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3 text-center">Recovery Lounge</h3>
+                    <p class="text-gray-600 text-center leading-relaxed">Area relaksasi eksklusif dengan pijat gratis, ice bath, dan refreshment premium.</p>
+                </div>
+                
+                <div class="card-hover bg-white p-8 rounded-2xl shadow-lg fade-in-up animated-element" style="transition-delay: 200ms;">
+                    <div class="w-16 h-16 bg-gradient-to-br from-purple-100 to-purple-200 rounded-2xl flex items-center justify-center mb-6 mx-auto">
+                        <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3 text-center">Kids & Family Zone</h3>
+                    <p class="text-gray-600 text-center leading-relaxed">Area bermain anak yang aman, face painting, dan aktivitas kreatif untuk keluarga.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-16 sm:py-24 bg-white overflow-hidden">
+        <div class="container mx-auto px-4 sm:px-6">
+            <div class="text-center mb-12 sm:mb-16 fade-in-up animated-element">
+                <span class="text-pink-600 font-semibold uppercase tracking-wider text-sm">Gallery</span>
+                <h2 class="font-display text-3xl sm:text-5xl font-bold text-emerald-900 mt-3 mb-4">
+                    Sneak Peek Pengalaman Anda
+                </h2>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="zoom-img rounded-xl overflow-hidden shadow-lg fade-in-up animated-element">
+                    <img src="https://images.unsplash.com/photo-1502904550040-7534597429ae?w=400" alt="Mountain Trail" class="w-full h-48 object-cover" loading="lazy">
+                </div>
+                <div class="zoom-img rounded-xl overflow-hidden shadow-lg fade-in-up animated-element" style="transition-delay: 50ms;">
+                    <img src="https://images.unsplash.com/photo-1490730141103-6cac27aaab94?w=400" alt="Flowers" class="w-full h-48 object-cover" loading="lazy">
+                </div>
+                <div class="zoom-img rounded-xl overflow-hidden shadow-lg fade-in-up animated-element" style="transition-delay: 100ms;">
+                    <img src="https://images.unsplash.com/photo-1452626038306-9aae5e071dd3?w=400" alt="Runner" class="w-full h-48 object-cover" loading="lazy">
+                </div>
+                <div class="zoom-img rounded-xl overflow-hidden shadow-lg fade-in-up animated-element" style="transition-delay: 150ms;">
+                    <img src="https://images.unsplash.com/photo-1551632811-561732d1e306?w=400" alt="Trail Path" class="w-full h-48 object-cover" loading="lazy">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Race Pack Section -->
+    <section id="racepack" class="py-16 sm:py-24 bg-gradient-to-br from-gray-50 to-emerald-50 overflow-hidden">
+        <div class="container mx-auto px-4 sm:px-6">
+            <div class="grid lg:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
+                <div class="order-2 lg:order-1 fade-in-left animated-element">
+                    <div class="zoom-img rounded-2xl overflow-hidden shadow-2xl">
+                        <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=800" alt="Premium Race Pack" class="w-full h-full object-cover" loading="lazy">
+                    </div>
+                </div>
+                
+                <div class="order-1 lg:order-2 fade-in-right animated-element">
+                    <span class="text-pink-600 font-semibold uppercase tracking-wider text-sm">Eksklusif Untuk Anda</span>
+                    <h2 class="font-display text-3xl sm:text-5xl font-bold text-emerald-900 mt-3 mb-6">
+                        Race Pack & Medali Kolektif
+                    </h2>
+                    <p class="text-lg text-gray-600 mb-6">
+                        Setiap peserta akan mendapatkan race pack premium yang berisi:
+                    </p>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-start gap-4 bg-white p-4 rounded-xl shadow-sm">
+                            <div class="w-10 h-10 bg-emerald-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                                <svg class="w-6 h-6 text-emerald-600" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                            </div>
+                            <span class="text-gray-700">Jersey lari dengan desain modern dan bahan berkualitas tinggi</span>
+                        </div>
+                        
+                        <div class="flex items-start gap-4 bg-white p-4 rounded-xl shadow-sm">
+                            <div class="w-10 h-10 bg-emerald-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                                <svg class="w-6 h-6 text-emerald-600" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                            </div>
+                            <span class="text-gray-700">Medali Finisher dengan desain unik (collectible item)</span>
+                        </div>
+                        
+                        <div class="flex items-start gap-4 bg-gradient-to-r from-pink-50 to-pink-100 p-4 rounded-xl shadow-sm border-2 border-pink-200">
+                            <div class="w-10 h-10 bg-pink-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                                <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <span class="font-bold text-pink-900 block">Exclusive Weekender Duffel Bag</span>
+                                <span class="text-gray-700 text-sm">Tas premium untuk petualangan Anda</span>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start gap-4 bg-white p-4 rounded-xl shadow-sm">
+                            <div class="w-10 h-10 bg-emerald-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                                <svg class="w-6 h-6 text-emerald-600" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                            </div>
+                            <span class="text-gray-700">BIB dengan chip timing dan voucher sponsor</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Registration CTA -->
+    <section id="daftar" class="py-16 sm:py-24 bg-gradient-to-br from-pink-600 to-pink-700 text-white overflow-hidden">
+        <div class="container mx-auto px-4 sm:px-6 max-w-4xl text-center fade-in-up animated-element">
+            <div class="bg-white/10 backdrop-blur-sm rounded-3xl p-8 sm:p-12">
+                <h2 class="font-display text-3xl sm:text-5xl font-bold mb-6">
+                    Amankan Slot Anda Sekarang!
+                </h2>
+                <p class="text-lg sm:text-xl mb-8 opacity-95">
+                    Pendaftaran akan segera dibuka. Daftarkan email Anda untuk mendapatkan informasi Early Bird dan promo eksklusif "Stay & Run" kami.
+                </p>
+                
+                <div class="max-w-md mx-auto mb-8">
+                    <div class="bg-white rounded-2xl p-6 shadow-2xl">
+                        <input type="email" id="emailInput" placeholder="Masukkan email Anda" class="w-full px-5 py-4 rounded-xl border-2 border-gray-200 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent text-gray-800 mb-4">
+                        <button onclick="handleSubmit()" class="btn-primary w-full bg-emerald-900 text-white px-8 py-4 rounded-xl font-bold hover:bg-emerald-800 shadow-lg transform hover:scale-105 transition focus-ring">
+                            🚀 Kirim & Dapatkan Info Early Bird
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="flex flex-wrap justify-center gap-6 text-sm">
+                    <div class="flex items-center gap-2">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                        </svg>
+                        <span>Early Bird Discount</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                        </svg>
+                        <span>Stay & Run Package</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                        </svg>
+                        <span>Limited Slots</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sponsorship Section -->
+    <section id="sponsor" class="py-16 sm:py-24 bg-emerald-900 text-white overflow-hidden">
+        <div class="container mx-auto px-4 sm:px-6">
+            <div class="text-center mb-12 sm:mb-16 fade-in-up animated-element">
+                <h2 class="font-display text-3xl sm:text-5xl font-bold mb-6">
+                    Jadilah Mitra Kami
+                </h2>
+                <p class="text-lg sm:text-xl text-gray-200 max-w-3xl mx-auto mb-4">
+                    Puntang Heights Trail adalah kesempatan unik untuk menghubungkan brand Anda dengan audiens premium yang menghargai gaya hidup sehat, keluarga, dan kemewahan.
+                </p>
+                <p class="text-lg text-gray-200 max-w-3xl mx-auto">
+                    Raih eksposur masif dan bangun citra brand yang kuat bersama kami.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto mb-12">
+                <div class="card-hover bg-white/10 backdrop-blur-sm p-8 rounded-2xl fade-in-up animated-element">
+                    <div class="text-4xl mb-4">📈</div>
+                    <h3 class="text-xl font-bold mb-3">Brand Awareness</h3>
+                    <p class="text-gray-300 leading-relaxed">Eksposur brand yang masif melalui platform digital dan fisik kami kepada target audiens yang tepat.</p>
+                </div>
+                
+                <div class="card-hover bg-white/10 backdrop-blur-sm p-8 rounded-2xl fade-in-up animated-element" style="transition-delay: 100ms;">
+                    <div class="text-4xl mb-4">🤝</div>
+                    <h3 class="text-xl font-bold mb-3">Engagement Langsung</h3>
+                    <p class="text-gray-300 leading-relaxed">Interaksi langsung dengan audiens melalui aktivasi di race village, sampling produk, dan di rute lari.</p>
+                </div>
+                
+                <div class="card-hover bg-white/10 backdrop-blur-sm p-8 rounded-2xl fade-in-up animated-element" style="transition-delay: 200ms;">
+                    <div class="text-4xl mb-4">⭐</div>
+                    <h3 class="text-xl font-bold mb-3">Brand Image Positif</h3>
+                    <p class="text-gray-300 leading-relaxed">Asosiasikan brand Anda dengan event premium, gaya hidup sehat, keluarga, dan pariwisata lokal.</p>
+                </div>
+            </div>
+
+            <div class="text-center fade-in-up animated-element" style="transition-delay: 300ms;">
+                <a href="mailto:info@puntangheightstrail.com?subject=Inquiry%20Paket%20Sponsorship" class="btn-primary inline-flex items-center gap-2 bg-white text-emerald-900 px-8 py-4 rounded-full text-lg font-bold hover:bg-gray-100 shadow-2xl transform hover:scale-105 transition focus-ring">
+                    📧 Hubungi Kami untuk Proposal
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-400 py-12 sm:py-16">
+        <div class="container mx-auto px-4 sm:px-6">
+            <div class="grid md:grid-cols-4 gap-8 mb-12">
+                <div>
+                    <div class="flex items-center gap-2 mb-4">
+                        <svg class="w-8 h-8 text-pink-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
+                        </svg>
+                        <h4 class="text-xl font-bold text-white">Puntang Heights Trail</h4>
+                    </div>
+                    <p class="text-sm leading-relaxed mb-4">
+                        Event fun run premium yang mengkombinasikan lari dan liburan di Taman Wisata Bougenville, Bandung.
+                    </p>
+                    <p class="text-sm">Oleh: [Nama Penyelenggara Event]</p>
+                </div>
+                
+                <div>
+                    <h5 class="text-lg font-semibold text-white mb-4">Navigasi</h5>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#tentang" class="hover:text-white transition rounded-lg focus-ring py-0.5 px-1">Tentang</a></li>
+                        <li><a href="#kategori" class="hover:text-white transition rounded-lg focus-ring py-0.5 px-1">Kategori Lomba</a></li>
+                        <li><a href="#lokasi" class="hover:text-white transition rounded-lg focus-ring py-0.5 px-1">Lokasi & Fasilitas</a></li>
+                        <li><a href="#gallery" class="hover:text-white transition rounded-lg focus-ring py-0.5 px-1">Gallery</a></li>
+                        <li><a href="#sponsor" class="hover:text-white transition rounded-lg focus-ring py-0.5 px-1">Kemitraan</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h5 class="text-lg font-semibold text-white mb-4">Hubungi Kami</h5>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="mailto:info@puntangheightstrail.com" class="hover:text-white transition rounded-lg focus-ring py-0.5 px-1">info@puntangheightstrail.com</a></li>
+                        <li><a href="tel:+6281224178271" class="hover:text-white transition rounded-lg focus-ring py-0.5 px-1">+62 812-2417-8271</a></li>
+                        <li><p>Bandung, Jawa Barat</p></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h5 class="text-lg font-semibold text-white mb-4">Ikuti Kami</h5>
+                    <div class="flex gap-4 mb-6">
+                        <a href="#" aria-label="Instagram" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-pink-600 transition focus-ring">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.148 3.227-1.667 4.771-4.919 4.919-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-3.252-.148-4.771-1.691-4.919-4.919-.058-1.265-.07-1.646-.07-4.85s.012-3.584.07-4.85c.148-3.227 1.667 4.771 4.919-4.919C8.416 2.175 8.796 2.163 12 2.163zm0 1.626c-3.141 0-3.499.01-4.71.069-2.67.122-3.83.692-4.14 1.85C2.95 6.64 2.83 7.79 2.82 9.29c-.01 1.21-.06 3.4.0 4.71.12 2.67.69 3.83 1.85 4.14 1.16.31 2.5.43 3.99.44 1.21.01 3.4.06 4.71 0 2.67-.12 3.83-.69 4.14-1.85.31-1.16.43-2.5.44-3.99.01-1.21.06-3.4 0-4.71-.12-2.67-.69-3.83-1.85-4.14-1.16-.31-2.5-.43-3.99-.44-1.21-.01-3.4-.06-4.71 0zM12 7.25c-2.62 0-4.75 2.13-4.75 4.75s2.13 4.75 4.75 4.75 4.75-2.13 4.75-4.75S14.62 7.25 12 7.25zm0 7.875c-1.72 0-3.125-1.405-3.125-3.125S10.28 8.875 12 8.875s3.125 1.405 3.125 3.125-1.405 3.125-3.125 3.125zm4.875-8.125c-.62 0-1.125.505-1.125 1.125s.505 1.125 1.125 1.125 1.125-.505 1.125-1.125-.505-1.125-1.125-1.125z"/>
+                            </svg>
+                        </a>
+                        <a href="#" aria-label="Facebook" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-pink-600 transition focus-ring">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.772-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/>
+                            </svg>
+                        </a>
+                        <a href="#" aria-label="Twitter" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-pink-600 transition focus-ring">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/>
+                            </svg>
+                        </a>
+                    </div>
+                    <p class="text-xs">Ikuti update terbaru kami di media sosial</p>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 pt-8 text-center">
+                <p class="text-sm">&copy; 2025 Puntang Heights Trail. Seluruh hak cipta dilindungi.</p>
+                <p class="text-xs mt-2 text-gray-500">Designed by Mahasin Hadiyatulloh with ❤️ for trail runners</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="backToTop" class="fixed bottom-20 right-4 md:bottom-8 md:right-8 w-12 h-12 bg-pink-600 text-white rounded-full shadow-lg opacity-0 invisible transition-all duration-300 hover:bg-pink-700 z-40 focus-ring" aria-label="Kembali ke atas">
+        <svg class="w-6 h-6 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/>
+        </svg>
+    </button>
+
+    <script>
+        // Mobile Menu Toggle
+        const menuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuLinks = mobileMenu.querySelectorAll('a');
+
+        menuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        menuLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Scroll Progress Bar
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('progressBar').style.width = scrolled + '%';
+        });
+
+        // Scroll Animations
+        const animatedElements = document.querySelectorAll('.animated-element');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        animatedElements.forEach(el => observer.observe(el));
+
+        // Countdown Timer (Set your event date here)
+        // Diubah ke 28 Februari 2026
+        const eventDate = new Date('2026-02-28T07:00:00').getTime();
+        
+        const countdown = setInterval(() => {
+            const now = new Date().getTime();
+            const distance = eventDate - now;
+            
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            
+            document.getElementById('days').textContent = days.toString().padStart(2, '0');
+            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+            
+            if (distance < 0) {
+                clearInterval(countdown);
+                document.getElementById('days').textContent = '00';
+                document.getElementById('hours').textContent = '00';
+                document.getElementById('minutes').textContent = '00';
+                document.getElementById('seconds').textContent = '00';
+            }
+        }, 1000);
+
+        // --- Perbaikan: Mengganti alert() dengan Toast Notification ---
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toast-message');
+            
+            if (toast && toastMessage) {
+                toastMessage.textContent = message;
+                toast.classList.remove('translate-x-[120%]');
+                
+                // Sembunyikan toast setelah 3 detik
+                setTimeout(() => {
+                    toast.classList.add('translate-x-[120%]');
+                }, 3000);
+            }
+        }
+
+        // Email Submission Handler
+        function handleSubmit() {
+            const emailInput = document.getElementById('emailInput');
+            const email = emailInput.value.trim();
+            
+            if (!email) {
+                showToast('Mohon masukkan email Anda'); // Menggunakan toast
+                return;
+            }
+            
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                showToast('Mohon masukkan email yang valid'); // Menggunakan toast
+                return;
+            }
+            
+            // Show success message
+            showToast('Terima kasih! Kami akan mengirimkan info Early Bird ke ' + email); // Menggunakan toast
+            emailInput.value = '';
+            
+            // Di sini Anda biasanya akan mengirim ini ke backend Anda
+            console.log('Email submitted:', email);
+        }
+
+        // Enter key submission
+        document.getElementById('emailInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                handleSubmit();
+            }
+        });
+
+        // Back to Top Button
+        const backToTop = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTop.classList.remove('opacity-0', 'invisible');
+            } else {
+                backToTop.classList.add('opacity-0', 'invisible');
+            }
+        });
+
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Navbar Background on Scroll
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 100) {
+                navbar.classList.add('shadow-lg');
+            } else {
+                navbar.classList.remove('shadow-lg');
+            }
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const offset = 80; // Ketinggian navbar
+                    const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Add loading animation
+        window.addEventListener('load', () => {
+            document.body.classList.add('loaded');
+        });
+    </script>
+
+</body>
+</html>
